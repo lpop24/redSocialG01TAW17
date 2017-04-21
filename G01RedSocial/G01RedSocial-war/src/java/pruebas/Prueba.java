@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Prueba
+ * @author Pruebas
  */
 @WebServlet(name = "Prueba", urlPatterns = {"/Prueba"})
 public class Prueba extends HttpServlet {
