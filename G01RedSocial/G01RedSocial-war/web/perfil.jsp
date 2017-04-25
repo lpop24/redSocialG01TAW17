@@ -3,7 +3,8 @@
     Created on : 21-abr-2017, 9:58:21
     Author     : Alberto
 --%>
-
+<%@page import ="g01.entity.Usuario"%>
+<%@page import ="g01.facade.UsuarioFacade"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
