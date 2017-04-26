@@ -5,8 +5,14 @@
  */
 package Servlets;
 
+import g01.entity.Usuario;
+import g01.facade.EstudiosFacade;
+import g01.facade.ExperienciaLaboralFacade;
+import g01.facade.LoginFacade;
+import g01.facade.UsuarioFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +26,18 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "DarAltaServlet", urlPatterns = {"/DarAltaServlet"})
 public class DarAltaServlet extends HttpServlet {
 
+    @EJB
+    private EstudiosFacade estudiosFacade;
+
+    @EJB
+    private ExperienciaLaboralFacade experienciaLaboralFacade;
+
+    @EJB
+    private LoginFacade loginFacade;
+
+    @EJB
+    private UsuarioFacade usuarioFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,16 +49,57 @@ public class DarAltaServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        Usuario usuario;
+        String nombre = request.getParameter("nombre");
+        String apellidos = request.getParameter("apellidos");
+        String cuentaInstagram = request.getParameter("instagram");
+        String email = request.getParameter("correo_electronico");
+        String cuentaTwitter = request.getParameter("twitter");
+        String telefono = request.getParameter("telefono");
+        String fechaNacimiento = request.getParameter("fecha_nacimiento"); //Se nos ha pasado ponerlo coo date en la base de datos
+        String paginaWebUsuario = request.getParameter("pagina_web");
+        String aficiones = request.getParameter("aficciones");//Fail en el nombre XD
+        //byte[] foto =request.getParameter("foto");
+        String ciudad = request.getParameter("ciudad");
+        String idUsuario = request.getParameter("idUsuario");
+        //-------------------------------------------------------------//    
+        //Date fechaInicioEst = request.getParameter("fecha_inicio");
+        //Date fechaFinEst = request.getParameter("fecha_fin");
+        String nombreCentro = request.getParameter("nombre");
+        String descripcionEst = request.getParameter("descripcion");
+        String ubicacionCentro = request.getParameter("ubicacion");
+        //--------------------------------------------------------------//        
+        //Date fechaInicioLab = request.getParameter("fecha_inicio");
+        //Date fechaFinLab = request.getParameter("fecha_fin");
+        String empresa = request.getParameter("empresa");
+        String ubicacionEmpresa = request.getParameter("ubicacion");
+        String descripcionLab = request.getParameter("descripcion");
+        String puesto = request.getParameter("puesto");
+        String paginaWebEmpresa = request.getParameter("web");
+
+        if (idUsuario == null || idUsuario.isEmpty()) {
+            usuario = new Usuario();
+        } else {
+            usuario = this.usuarioFacade.find(idUsuario);//Esto sería para actualizar
+        }
+
+        usuario.setAficciones(aficiones);
+        usuario.setApellidos(apellidos);
+        usuario.setCiudad(ciudad);
+        usuario.setCorreoElectronico(nombreCentro);
+        //y sigue...
+
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DarAltaServlet</title>");            
+            out.println("<title>Servlet Prueba</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DarAltaServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Prueba at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -86,3 +145,6 @@ public class DarAltaServlet extends HttpServlet {
     }// </editor-fold>
 
 }
+
+
+
