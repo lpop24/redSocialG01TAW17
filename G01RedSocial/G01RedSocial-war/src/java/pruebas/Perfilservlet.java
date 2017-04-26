@@ -5,8 +5,11 @@
  */
 package pruebas;
 
+import g01.entity.Usuario;
+import g01.facade.UsuarioFacade;
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,8 +32,22 @@ public class Perfilservlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    @EJB
+    private UsuarioFacade userfacade;
+            
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        Usuario user;
+        String nombre = request.getParameter("nombre");
+        
+        
+        
+        
+        RequestDispatcher rd;
+        
+        rd = this.getServletContext().getRequestDispatcher("/perfil.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

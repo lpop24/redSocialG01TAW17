@@ -18,9 +18,8 @@
     <body>
         <form method="post" action="Perfilservlet">
         <h1>Perfil de: </h1>
-        <%// Usuario user; %>
-        <%//= user.getNombre() %>
-        
+
+
         
         
         <h1>Datos personales</h1>
