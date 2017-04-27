@@ -117,6 +117,6 @@
                 <%}%>--%>
         </form>
         <br>
-        <a href="modificar.jsp?id=<%=id %>">Modificar perfil</a>
+        <a href="NoVale?id=<%= id %>">Modificar perfil</a>
     </body>
 </html>
