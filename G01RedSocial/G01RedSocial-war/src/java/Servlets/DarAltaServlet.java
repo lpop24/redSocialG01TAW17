@@ -12,6 +12,10 @@ import g01.facade.LoginFacade;
 import g01.facade.UsuarioFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,7 +52,7 @@ public class DarAltaServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException {
 
         Usuario usuario;
         String nombre = request.getParameter("nombre");
@@ -64,14 +68,14 @@ public class DarAltaServlet extends HttpServlet {
         String ciudad = request.getParameter("ciudad");
         String idUsuario = request.getParameter("idUsuario");
         //-------------------------------------------------------------//    
-        //Date fechaInicioEst = request.getParameter("fecha_inicio");
-        //Date fechaFinEst = request.getParameter("fecha_fin");
+        java.util.Date fechaInicioEst = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fecha_inicio"));
+        java.util.Date fechaFinEst = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fecha_fin"));
         String nombreCentro = request.getParameter("nombre");
         String descripcionEst = request.getParameter("descripcion");
         String ubicacionCentro = request.getParameter("ubicacion");
         //--------------------------------------------------------------//        
-        //Date fechaInicioLab = request.getParameter("fecha_inicio");
-        //Date fechaFinLab = request.getParameter("fecha_fin");
+        java.util.Date fechaInicioLab = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fecha_inicio"));
+        java.util.Date fechaFinLab = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fecha_fin"));
         String empresa = request.getParameter("empresa");
         String ubicacionEmpresa = request.getParameter("ubicacion");
         String descripcionLab = request.getParameter("descripcion");
@@ -117,7 +121,11 @@ public class DarAltaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(DarAltaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -131,7 +139,11 @@ public class DarAltaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(DarAltaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
