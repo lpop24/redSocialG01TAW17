@@ -16,16 +16,18 @@
         <form method="post" action="LoginServlet">
             <table>
             <tr>
-                <td>Nombre de Usuario <input type="text" name="nombreUsuario"/>
+                <td>Nombre de Usuario </td>
+                <td><input type="text" name="nombreUsuario"/></td>
             </tr>
             <tr>
-                <td>Contraseña <input type="password" name="passUsuario"/>
+                <td>Contraseña</td>
+                <td><input type="password" name="passUsuario"/></td>
             </tr>
             </table>
             <button>Entrar</button>
         </form>
-        </br>
-        </br>
+        <br/>
+        <br/>
             <a href="DarlAltaServlet">Crear Cuenta</a>
     </body>
 </html>
