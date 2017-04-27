@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Alvaro Medina Martinez
  */
 @WebServlet(name = "modificarServlet", urlPatterns = {"/modificarServlet"})
-public class ModificarServlet extends HttpServlet {
+public class NoVale extends HttpServlet {
 
     @EJB
     private UsuarioFacade usuarioFacade;
