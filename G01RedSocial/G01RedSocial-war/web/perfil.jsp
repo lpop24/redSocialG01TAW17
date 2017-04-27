@@ -84,22 +84,32 @@
             <br>
             
             <h3>Estudios</h3>
-             <%--   <%for(Estudios est: estudios){ %>
+                <%--<%for(Estudios est: estudios){ %>
                     <b>Nombre</b><%= est.getNombre() %><br>
-                    <b>Fecha de inicio</b><br>
-                    <b>Fecha de finalización</b><br>
+                    <b>Fecha de inicio</b>
+                    <% java.util.Date fechaInicioEst=est.getFechaInicio();%>
+                    <%=fechaInicioEst%><br>
+                    <br>
+                    <b>Fecha de finalización</b>
+                    <% java.util.Date fechaFinEst=est.getFechaFin();%>
+                    <%=fechaFinEst%>
+                    <br>
                     <b>Ubicación</b><%= est.getUbicacion()%><br>
                     <b>Descripción</b><%= est.getDescripcion() %><br>
                     <br>
-                <%}%>--%>
+                <%}%>
             <br>
             
             <h3>Experiencia Laboral</h3>
-                <%--<%for(ExperienciaLaboral exp: experiencia){ %>
+                <%for(ExperienciaLaboral exp: experiencia){ %>
                     <b>Puesto</b><%= exp.getPuesto() %><br>
                     <b>Empresa</b><%=exp.getEmpresa() %><br>
-                    <b>Fecha de inicio</b><br>
+                    <b>Fecha de inicio</b>
+                    <% java.util.Date fechaInicioExp=exp.getFechaInicio();%>
+                    <%=fechaInicioExp%><br>
                     <b>Fecha de finalización</b><br>
+                    <% java.util.Date fechaFinExp=exp.getFechaFin();%>
+                    <%=fechaFinExp%><br>
                     <b>Página web</b><%= exp.getWeb() %><br>
                     <b>Ubicación</b><%=exp.getUbicacion() %><br>
                     <b>Descripción</b><%= exp.getDescripcion() %><br>
