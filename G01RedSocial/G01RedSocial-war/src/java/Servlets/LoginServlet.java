@@ -9,7 +9,6 @@ import g01.entity.Login;
 import g01.entity.Usuario;
 import g01.facade.LoginFacade;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -29,7 +28,7 @@ public class LoginServlet extends HttpServlet {
     @EJB
     private LoginFacade loginFacade;
     
-    @EJB
+  
     private Usuario usuario;
     
     /**
@@ -52,15 +51,17 @@ public class LoginServlet extends HttpServlet {
         String pass = request.getParameter("passUsuario");
         
         if (nombreUsuario == null || nombreUsuario.isEmpty()) {
-            //listaLogin = this.customerFacade.findAll();            
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/loginFallido.jsp");
+            rd.forward(request, response);
         }else{
-            listaLogin = this.loginFacade.encontrarUsuario(nombreUsuario); //Debería recibir 1 solo resultado
-            if((listaLogin.get(0).getUsuario1() == null) || (listaLogin.get(0).getContraseña() == null)){
+            listaLogin = this.loginFacade.encontrarUsuario(nombreUsuario, pass); //Debería recibir 1 solo resultado
+            if(listaLogin.isEmpty()){
                 RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/loginFallido.jsp");
+                rd.forward(request, response);
             }else{
-               //idUser = listaLogin.get(0).getUsuario().getIdUsuario();
+               idUser = listaLogin.get(0).getUsuario().getIdUsuario();
 
-               //request.setAttribute("idUser", idUser);
+               request.setAttribute("id", idUser);
                
                RequestDispatcher rd;
         
