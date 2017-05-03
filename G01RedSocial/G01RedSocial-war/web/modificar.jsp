@@ -57,9 +57,9 @@
                         <td>Aficiones:</td>
                         <td><input type="text" name="aficiones" value="<%= usuario.getAficciones()%>"></td>
                     </tr>
+                    <!--
                     <tr>
                         <td>Foto:</td>
-                        <!--
                                 
                         public String openFileToString(byte[] _bytes)
                         {
@@ -73,9 +73,9 @@
                         return file_string;    
                         }  
                         
-                        -->
                         <td><input type="text" name="foto" value="<%= usuario.getFoto()%>"></td>
                     </tr>
+                    -->
                     <tr>
                         <td>Ciudad:</td>
                         <td><input type="text" name="ciudad" value="<%= usuario.getCiudad()%>"></td>
