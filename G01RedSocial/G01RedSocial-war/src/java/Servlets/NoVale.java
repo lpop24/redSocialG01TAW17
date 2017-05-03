@@ -5,9 +5,8 @@
  */
 package Servlets;
 
-import g01.entity.Login;
 import g01.entity.Usuario;
-import g01.facade.LoginFacade;
+import g01.facade.UsuarioFacade;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -20,57 +19,26 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author xdaxn
+ * @author Alvaro Medina Martinez
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "NoVale", urlPatterns = {"/NoVale"})
+public class NoVale extends HttpServlet {
 
     @EJB
-    private LoginFacade loginFacade;
+    private UsuarioFacade usuarioFacade;
     
-  
-    private Usuario usuario;
-    
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        List<Login> listaLogin;
-        List<Usuario> listaUsuario;
-        int idUser = -1; //Si no consigue el ID, devuelve -1 como error
+        String id = request.getParameter("id");
         
-        String nombreUsuario = request.getParameter("nombreUsuario");
-        String pass = request.getParameter("passUsuario");
+        Usuario usuario = usuarioFacade.find(id);
         
-        if (nombreUsuario == null || nombreUsuario.isEmpty()) {
-            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/loginFallido.jsp");
-            rd.forward(request, response);
-        }else{
-            listaLogin = this.loginFacade.encontrarUsuario(nombreUsuario, pass); //Debería recibir 1 solo resultado
-            if(listaLogin.isEmpty()){
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/loginFallido.jsp");
-                rd.forward(request, response);
-            }else{
-               idUser = listaLogin.get(0).getUsuario().getIdUsuario();
-
-               request.setAttribute("id", idUser);
-               
-               RequestDispatcher rd;
+        request.setAttribute("usuario", usuario);
         
-                rd = this.getServletContext().getRequestDispatcher("/perfil.jsp");
-                rd.forward(request, response);
-            }   
-        }
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/modificar.jsp");
+        rd.forward(request, response);
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
