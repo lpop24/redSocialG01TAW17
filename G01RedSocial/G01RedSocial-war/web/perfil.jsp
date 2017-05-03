@@ -120,6 +120,6 @@
                     <br>
                 <%}%>--%>
         <br/>
-        <a href="NoVale?id=<%= id %>">Modificar perfil</a>
+        <input type="button" value="Modificar Perfil" onClick="location.href = '/G01RedSocial-war/modificar.jsp'">
     </body>
 </html>

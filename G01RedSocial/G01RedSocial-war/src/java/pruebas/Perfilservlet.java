@@ -11,12 +11,9 @@
  */
 package pruebas;
 
-import g01.entity.Estudios;
-import g01.entity.ExperienciaLaboral;
 import g01.entity.Usuario;
 import g01.facade.UsuarioFacade;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -25,6 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -48,6 +46,8 @@ public class Perfilservlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
+        
         int idUser = (int) request.getAttribute("id");
         
         List<Usuario> userLista;
@@ -55,6 +55,8 @@ public class Perfilservlet extends HttpServlet {
         userLista = this.userfacade.encontrarPorId(idUser);
         
         Usuario user = userLista.get(0);
+        
+        session.setAttribute("usuario", user);
         
         int id = user.getIdUsuario();
         request.setAttribute("idAlberto", id);

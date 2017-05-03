@@ -6,7 +6,7 @@
 
 <%@page import="g01.entity.Usuario"%>
 <%
-    Usuario usuario = (Usuario) request.getAttribute("usuario");
+    Usuario usuario = (Usuario) session.getAttribute("usuario");
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
