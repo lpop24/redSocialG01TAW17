@@ -17,6 +17,7 @@ import g01.entity.Usuario;
 import g01.facade.UsuarioFacade;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -47,11 +48,16 @@ public class Perfilservlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        int idUser = (int) request.getAttribute("id");
         
-        Usuario user = this.userfacade.find(this);
+        List<Usuario> userLista;
         
-        Integer id = user.getIdUsuario();
-        request.setAttribute("id", id);
+        userLista = this.userfacade.encontrarPorId(idUser);
+        
+        Usuario user = userLista.get(0);
+        
+        int id = user.getIdUsuario();
+        request.setAttribute("idAlberto", id);
         
         String name = user.getNombre() ;
         request.setAttribute("nombre", name);
@@ -82,7 +88,7 @@ public class Perfilservlet extends HttpServlet {
         
         String twitter = user.getTwitter();
         request.setAttribute("twitter", twitter);
-        
+        /*
         byte[] foto = user.getFoto();
         request.setAttribute("foto", foto);
         
@@ -91,7 +97,7 @@ public class Perfilservlet extends HttpServlet {
         
         Collection<Estudios> estudios = user.getEstudiosCollection();
         request.setAttribute ("estudios", estudios);
-        
+        */
         
         RequestDispatcher rd;
         

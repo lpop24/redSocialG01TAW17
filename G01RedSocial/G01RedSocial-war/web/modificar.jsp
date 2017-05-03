@@ -18,7 +18,7 @@
     </head>
     <body>
         Modificar perfil de: <br/><br/>
-        <form method="post" action="modificarServlet" name="modificar">
+        <form method="post" action="Perfilservlet" name="modificar">
             <table border="1">
                 <tbody>
                     <tr>
@@ -80,6 +80,7 @@
                         <td>Ciudad:</td>
                         <td><input type="text" name="ciudad" value="<%= usuario.getCiudad()%>"></td>
                     </tr>
+                    <!--
                     <tr>
                         <td>Experiencia laboral:</td>
                         <td><input type="text" name="experienciaLaboral" value="<%= usuario.getExperienciaLaboralCollection()%>"></td>
@@ -88,6 +89,7 @@
                         <td>Estudios:</td>
                         <td><input type="text" name="estudios" value=""></td>
                     </tr>
+                    -->
                 </tbody>
             </table>
             <button>Guardar</button>

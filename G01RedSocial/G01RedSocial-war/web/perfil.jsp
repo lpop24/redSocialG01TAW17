@@ -11,7 +11,7 @@
 
 <%
        Integer id;
-       id = (Integer) request.getAttribute("id"); //El ID lo coges bien
+       id = (Integer) request.getAttribute("idAlberto"); //El ID lo coges bien
        
        //A partir de aqui, no puedes cogerlos atributos del request ya que en el request lo unico que hay ahora mismo es el id
        //Tienes que hacer coger los datos de la base de datos usando las consultas de la facade del usuario
@@ -47,7 +47,7 @@
               
        String aficiones;
        aficiones = (String) request.getAttribute("aficiones");
-        
+        /*
         byte[] foto;
         //foto = (byte[]) request.getAttribute("foto");
         
@@ -56,7 +56,7 @@
         
         Collection<Estudios> estudios;
         estudios = (Collection<Estudios>)request.getAttribute ("estudios");
-
+        */
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -67,26 +67,25 @@
         <title>PERFIL DE USUARIO</title>
     </head>
     <body>
-        <form method="post" action="Perfilservlet">
             <h2>Perfil de <%= nombre %></h2>
-            ---------<br>
-            -o---o--<br>
-            ---*----<br>
-            -www--<br>
-            ---------<br>
-            <br>
+            ---------<br/>
+            -o---o--<br/>
+            ---*----<br/>
+            -www--<br/>
+            ---------<br/>
+            <br/>
         
             <h3>Datos personales</h3>
-                <b>Nombre: </b><%= nombre %> <%= apellidos %><br>
-                <b>Fecha de nacimiento: </b> <%= fechanacimiento %><br>
-                <b>Ciudad de origen: </b> <%= ciudad %><br>
-                <b>Correo: </b><%= correo %><br>
-                <b>Página web: </b> <%= web %><br>
-                <b>Teléfono: </b><%= telefono %><br>
-                <b>Instagram: </b><%= instagram %><br>
-                <b>Twitter: </b><%= twitter %><br>
-                <b>Aficiones: </b><%= aficiones %><br>
-            <br>
+                <b>Nombre: </b><%= nombre %> <%= apellidos %><br/>
+                <b>Fecha de nacimiento: </b> <%= fechanacimiento %><br/>
+                <b>Ciudad de origen: </b> <%= ciudad %><br/>
+                <b>Correo: </b><%= correo %><br/>
+                <b>Página web: </b> <%= web %><br/>
+                <b>Teléfono: </b><%= telefono %><br/>
+                <b>Instagram: </b><%= instagram %><br/>
+                <b>Twitter: </b><%= twitter %><br/>
+                <b>Aficiones: </b><%= aficiones %><br/>
+            <br/>
             
             <h3>Estudios</h3>
                 <%--<%for(Estudios est: estudios){ %>
@@ -120,8 +119,7 @@
                     <b>Descripción</b><%= exp.getDescripcion() %><br>
                     <br>
                 <%}%>--%>
-        </form>
-        <br>
+        <br/>
         <a href="NoVale?id=<%= id %>">Modificar perfil</a>
     </body>
 </html>

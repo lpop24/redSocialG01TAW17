@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+// Alvaro Medina Martinez
+
 package Servlets;
 
-import g01.entity.Login;
 import g01.entity.Usuario;
-import g01.facade.LoginFacade;
+import g01.facade.UsuarioFacade;
 import java.io.IOException;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,57 +18,30 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import static javax.ws.rs.client.Entity.entity;
 
 /**
  *
- * @author xdaxn
+ * @author alvar
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
-
-    @EJB
-    private LoginFacade loginFacade;
+@WebServlet(name = "ActualizarPerfil", urlPatterns = {"/ActualizarPerfil"})
+public class ActualizarPerfilServlet extends HttpServlet {
     
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    @EJB
+    private UsuarioFacade usuarioFacade;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        List<Login> listaLogin;
+        HttpSession session = request.getSession();
         
-        int idUser = -1; //Si no consigue el ID, devuelve -1 como error
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
         
-        String nombreUsuario = request.getParameter("nombreUsuario");
-        String pass = request.getParameter("passUsuario");
+        usuarioFacade.edit(usuario);
         
-        if (nombreUsuario == null || nombreUsuario.isEmpty()) {
-            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/loginFallido.jsp");
-            rd.forward(request, response);
-        }else{
-            listaLogin = this.loginFacade.encontrarUsuario(nombreUsuario, pass); //Debería recibir 1 solo resultado
-            if(listaLogin.isEmpty()){
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/loginFallido.jsp");
-                rd.forward(request, response);
-            }else{
-               idUser = listaLogin.get(0).getUsuario().getIdUsuario();
-
-               request.setAttribute("id", idUser);
-               
-               RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Perfilservlet");
-                rd.forward(request, response);
-                
-                //response.sendRedirect(request.getContextPath() + "/Perfilservlet");
-            }   
-        }
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Perfilservlet");
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

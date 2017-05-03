@@ -5,10 +5,13 @@
  */
 package g01.facade;
 
+import g01.entity.Login;
 import g01.entity.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +30,14 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
 
     public UsuarioFacade() {
         super(Usuario.class);
+    }
+    
+        public List<Usuario> encontrarPorId(Integer id) {
+        Query q; 
+        
+        q = em.createQuery("select u from Usuario u where u.idUsuario = :id");
+        q.setParameter("id", id);
+        return q.getResultList();
     }
     
 }
