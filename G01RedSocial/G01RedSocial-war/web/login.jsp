@@ -27,7 +27,6 @@
             <button>Entrar</button>
         </form>
         <br/>
-        <br/>
-            <a href="DarlAltaServlet">Crear Cuenta</a>
+            <input type="button" value="Crear Cuenta" onClick="location.href = '/G01RedSocial-war/DarlAltaServlet'">
     </body>
 </html>

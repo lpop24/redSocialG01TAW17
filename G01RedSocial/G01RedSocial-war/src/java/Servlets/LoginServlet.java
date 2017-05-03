@@ -5,8 +5,13 @@
  */
 package Servlets;
 
+import g01.entity.Login;
+import g01.entity.Usuario;
+import g01.facade.LoginFacade;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +25,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
+    @EJB
+    private LoginFacade loginFacade;
+    
+  
+    private Usuario usuario;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,20 +42,35 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        List<Login> listaLogin;
+        List<Usuario> listaUsuario;
+        int idUser = -1; //Si no consigue el ID, devuelve -1 como error
+        
+        String nombreUsuario = request.getParameter("nombreUsuario");
+        String pass = request.getParameter("passUsuario");
+        
+        if (nombreUsuario == null || nombreUsuario.isEmpty()) {
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/loginFallido.jsp");
+            rd.forward(request, response);
+        }else{
+            listaLogin = this.loginFacade.encontrarUsuario(nombreUsuario, pass); //Debería recibir 1 solo resultado
+            if(listaLogin.isEmpty()){
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/loginFallido.jsp");
+                rd.forward(request, response);
+            }else{
+               idUser = listaLogin.get(0).getUsuario().getIdUsuario();
+
+               request.setAttribute("id", idUser);
+               
+               RequestDispatcher rd;
+        
+                rd = this.getServletContext().getRequestDispatcher("/perfil.jsp");
+                rd.forward(request, response);
+            }   
         }
     }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

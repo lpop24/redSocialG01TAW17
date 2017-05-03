@@ -5,6 +5,8 @@
  */
 package Servlets;
 
+import g01.entity.Estudios;
+import g01.entity.ExperienciaLaboral;
 import g01.entity.Usuario;
 import g01.facade.EstudiosFacade;
 import g01.facade.ExperienciaLaboralFacade;
@@ -14,9 +16,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -53,6 +57,7 @@ public class DarAltaServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
+       
 
         Usuario usuario;
         String nombre = request.getParameter("nombre");
@@ -68,7 +73,7 @@ public class DarAltaServlet extends HttpServlet {
         String ciudad = request.getParameter("ciudad");
         String idUsuario = request.getParameter("idUsuario");
         //-------------------------------------------------------------//    
-        java.util.Date fechaInicioEst = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fecha_inicio"));
+        java.util.Date fechaInicioEst = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fecha_inicio_est"));
         java.util.Date fechaFinEst = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fecha_fin"));
         String nombreCentro = request.getParameter("nombre");
         String descripcionEst = request.getParameter("descripcion");
@@ -91,9 +96,52 @@ public class DarAltaServlet extends HttpServlet {
         usuario.setAficciones(aficiones);
         usuario.setApellidos(apellidos);
         usuario.setCiudad(ciudad);
-        usuario.setCorreoElectronico(nombreCentro);
-        //y sigue...
-
+        usuario.setCorreoElectronico(email);
+        usuario.setFechaNacimiento(fechaNacimiento);
+        usuario.setInstagram(cuentaInstagram);
+        usuario.setNombre(nombre);
+        usuario.setPaginaWeb(paginaWebEmpresa);
+        usuario.setTelefono(telefono);
+        usuario.setTwitter(cuentaTwitter);
+        
+        
+        Collection<Estudios> estudios;
+        Collection<ExperienciaLaboral> expLaboral;
+        
+        estudios = this.estudiosFacade.findAll();
+        expLaboral = this.experienciaLaboralFacade.findAll();
+        
+        Estudios est = new Estudios();
+               
+        est.setNombre(nombreCentro);
+        est.setUbicacion(ubicacionCentro);
+        est.setFechaInicio(fechaInicioEst);
+        est.setFechaFin(fechaFinEst);
+        est.setDescripcion(descripcionEst);
+        
+        this.estudiosFacade.create(est);        
+        usuario.getEstudiosCollection().add(est);
+        
+        this.usuarioFacade.edit(usuario); //Para editar (So for Álvaro que ahora se llama Alvaro porque si no, peta todo
+        
+        ExperienciaLaboral lab = new ExperienciaLaboral();
+        
+        
+            lab.setEmpresa(empresa);
+            lab.setFechaInicio(fechaInicioLab);
+            lab.setFechaFin(fechaFinLab);
+            lab.setPuesto(puesto);
+            lab.setWeb(paginaWebEmpresa);
+            lab.setDescripcion(descripcionLab);
+            lab.setUbicacion(ubicacionEmpresa);
+            
+        this.experienciaLaboralFacade.create(lab);
+        usuario.getExperienciaLaboralCollection().add(lab);
+        
+        
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/darDeAlta.jsp");
+        rd.forward(request, response);
+        
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
