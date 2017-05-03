@@ -111,13 +111,19 @@ public class DarAltaServlet extends HttpServlet {
         estudios = this.estudiosFacade.findAll();
         expLaboral = this.experienciaLaboralFacade.findAll();
         
-        for (Estudios est : estudios) {
-            est.setNombre(nombreCentro);
-            est.setUbicacion(ubicacionCentro);
-            est.setFechaInicio(fechaInicioEst);
-            est.setFechaFin(fechaFinEst);
-            est.setDescripcion(descripcionEst);
-        }
+        Estudios est = new Estudios();
+               
+        est.setNombre(nombreCentro);
+        est.setUbicacion(ubicacionCentro);
+        est.setFechaInicio(fechaInicioEst);
+        est.setFechaFin(fechaFinEst);
+        est.setDescripcion(descripcionEst);
+        
+        this.estudiosFacade.create(est);
+        
+        usuario.getEstudiosCollection().add(est);
+        
+        this.usuarioFacade.edit(usuario);
         
         for (ExperienciaLaboral lab : expLaboral){
             lab.setEmpresa(empresa);
