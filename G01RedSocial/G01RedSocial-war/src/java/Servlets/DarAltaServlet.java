@@ -119,13 +119,14 @@ public class DarAltaServlet extends HttpServlet {
         est.setFechaFin(fechaFinEst);
         est.setDescripcion(descripcionEst);
         
-        this.estudiosFacade.create(est);
-        
+        this.estudiosFacade.create(est);        
         usuario.getEstudiosCollection().add(est);
         
-        this.usuarioFacade.edit(usuario);
+        this.usuarioFacade.edit(usuario); //Para editar (So for Álvaro que ahora se llama Alvaro porque si no, peta todo
         
-        for (ExperienciaLaboral lab : expLaboral){
+        ExperienciaLaboral lab = new ExperienciaLaboral();
+        
+        
             lab.setEmpresa(empresa);
             lab.setFechaInicio(fechaInicioLab);
             lab.setFechaFin(fechaFinLab);
@@ -133,7 +134,10 @@ public class DarAltaServlet extends HttpServlet {
             lab.setWeb(paginaWebEmpresa);
             lab.setDescripcion(descripcionLab);
             lab.setUbicacion(ubicacionEmpresa);
-        }
+            
+        this.experienciaLaboralFacade.create(lab);
+        usuario.getExperienciaLaboralCollection().add(lab);
+        
         
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/darDeAlta.jsp");
         rd.forward(request, response);
