@@ -13,11 +13,6 @@
 <%
        Integer id;
        id = (Integer) request.getAttribute("idAlberto"); //El ID lo coges bien
-       
-       //A partir de aqui, no puedes cogerlos atributos del request ya que en el request lo unico que hay ahora mismo es el id
-       //Tienes que hacer coger los datos de la base de datos usando las consultas de la facade del usuario
-       //El como hacerlo ahora mismo no estoy muy seguro, pero supongo que tendras que inyectar la facade, crear las consultas que necesites
-       // y llamarlas desde aqui
     
        String nombre;
        nombre = (String) request.getAttribute("nombre");
