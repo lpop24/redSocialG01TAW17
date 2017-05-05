@@ -9,14 +9,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pruebas;
+package Servlets;
 
 import g01.entity.Estudios;
 import g01.entity.ExperienciaLaboral;
 import g01.entity.Usuario;
+import g01.facade.EstudiosFacade;
+import g01.facade.ExperienciaLaboralFacade;
 import g01.facade.UsuarioFacade;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,6 +27,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -31,6 +35,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "Perfilservlet", urlPatterns = {"/Perfilservlet"})
 public class Perfilservlet extends HttpServlet {
+
+    @EJB
+    private EstudiosFacade estudiosFacade;
+
+    @EJB
+    private ExperienciaLaboralFacade experienciaLaboralFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,15 +53,27 @@ public class Perfilservlet extends HttpServlet {
      */
     @EJB
     private UsuarioFacade userfacade;
+    
+    
+    
             
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
         
-        Usuario user = this.userfacade.find(this);
+        int idUser = (int) session.getAttribute("id");
         
-        Integer id = user.getIdUsuario();
-        request.setAttribute("id", id);
+        List<Usuario> userLista;
+        
+        userLista = this.userfacade.encontrarPorId(idUser);
+        
+        Usuario user = userLista.get(0);
+        
+        session.setAttribute("usuario", user);
+        
+        int id = user.getIdUsuario();
+        request.setAttribute("idAlberto", id);
         
         String name = user.getNombre() ;
         request.setAttribute("nombre", name);
@@ -82,16 +104,26 @@ public class Perfilservlet extends HttpServlet {
         
         String twitter = user.getTwitter();
         request.setAttribute("twitter", twitter);
-        
+        /*
         byte[] foto = user.getFoto();
         request.setAttribute("foto", foto);
-        
-        Collection<ExperienciaLaboral> experiencia = user.getExperienciaLaboralCollection();
+        */
+        /*Collection<ExperienciaLaboral> experiencia = user.getExperienciaLaboralCollection();
         request.setAttribute ("experiencia", experiencia);
         
         Collection<Estudios> estudios = user.getEstudiosCollection();
         request.setAttribute ("estudios", estudios);
+        */
         
+        
+        int idLista = id;
+        /*
+        List<ExperienciaLaboral> experiencia = experienciaLaboralFacade.findExperienciaLaboral(idLista);
+        request.setAttribute ("experiencia", experiencia);
+        */
+        
+        List<Estudios> estudios =estudiosFacade.findEstudios(idLista);
+        request.setAttribute ("estudios", estudios);
         
         RequestDispatcher rd;
         

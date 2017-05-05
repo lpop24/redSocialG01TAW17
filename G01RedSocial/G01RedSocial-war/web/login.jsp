@@ -1,7 +1,5 @@
 <%-- 
-    Document   : login
-    Created on : 26-abr-2017, 17:10:55
-    Author     : DaniUni
+    Author     : Daniel Alvarez Valero
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -27,6 +25,6 @@
             <button>Entrar</button>
         </form>
         <br/>
-            <input type="button" value="Crear Cuenta" onClick="location.href = '/G01RedSocial-war/DarlAltaServlet'">
+            <input type="button" value="CrearCuenta" onClick="location.href = '/G01RedSocial-war/darDeAlta.jsp'">
     </body>
 </html>

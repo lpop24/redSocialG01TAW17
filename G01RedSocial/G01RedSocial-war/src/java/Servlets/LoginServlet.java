@@ -1,3 +1,6 @@
+
+//    Author     : Daniel Alvarez Valero
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -17,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -27,9 +31,6 @@ public class LoginServlet extends HttpServlet {
 
     @EJB
     private LoginFacade loginFacade;
-    
-  
-    private Usuario usuario;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,8 +44,10 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
+        
         List<Login> listaLogin;
-        List<Usuario> listaUsuario;
+        
         int idUser = -1; //Si no consigue el ID, devuelve -1 como error
         
         String nombreUsuario = request.getParameter("nombreUsuario");
@@ -61,12 +64,12 @@ public class LoginServlet extends HttpServlet {
             }else{
                idUser = listaLogin.get(0).getUsuario().getIdUsuario();
 
-               request.setAttribute("id", idUser);
+               session.setAttribute("id", idUser);
                
-               RequestDispatcher rd;
-        
-                rd = this.getServletContext().getRequestDispatcher("/perfil.jsp");
+               RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Perfilservlet");
                 rd.forward(request, response);
+                
+                //response.sendRedirect(request.getContextPath() + "/Perfilservlet");
             }   
         }
     }
