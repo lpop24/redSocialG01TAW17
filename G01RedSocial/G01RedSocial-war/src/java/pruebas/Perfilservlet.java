@@ -62,7 +62,7 @@ public class Perfilservlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         
-        int idUser = (int) request.getAttribute("id");
+        int idUser = (int) session.getAttribute("id");
         
         List<Usuario> userLista;
         

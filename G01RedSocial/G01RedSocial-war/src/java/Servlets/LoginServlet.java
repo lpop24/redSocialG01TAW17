@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -40,6 +41,8 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
+        
         List<Login> listaLogin;
         
         int idUser = -1; //Si no consigue el ID, devuelve -1 como error
@@ -58,7 +61,7 @@ public class LoginServlet extends HttpServlet {
             }else{
                idUser = listaLogin.get(0).getUsuario().getIdUsuario();
 
-               request.setAttribute("id", idUser);
+               session.setAttribute("id", idUser);
                
                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Perfilservlet");
                 rd.forward(request, response);

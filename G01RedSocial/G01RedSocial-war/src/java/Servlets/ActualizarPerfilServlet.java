@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import static javax.ws.rs.client.Entity.entity;
 
 /**
  *
@@ -34,11 +33,37 @@ public class ActualizarPerfilServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        
         HttpSession session = request.getSession();
         
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         
-        usuarioFacade.edit(usuario);
+        String nombreUsuario = request.getParameter("nombre");
+        String apellidosUsuario = request.getParameter("apellidos");
+        String instagramUsuario = request.getParameter("instagram");
+        String emailUsuario = request.getParameter("email");
+        String twitterUsuario = request.getParameter("twitter");
+        String telefonoUsuario = request.getParameter("telefono");
+        String fecha_nacimientoUsuario = request.getParameter("fecha_nacimiento");
+        String pagina_webUsuario = request.getParameter("pagina_web");
+        String aficionesUsuario = request.getParameter("aficiones");
+        String ciudadUsuario = request.getParameter("ciudad");
+        
+        Usuario usuarioEditar;
+        usuarioEditar = this.usuarioFacade.find(usuario.getIdUsuario());
+        
+        usuarioEditar.setNombre(nombreUsuario);
+        usuarioEditar.setApellidos(apellidosUsuario);
+        usuarioEditar.setInstagram(instagramUsuario);
+        usuarioEditar.setCorreoElectronico(emailUsuario);
+        usuarioEditar.setTwitter(twitterUsuario);
+        usuarioEditar.setTelefono(telefonoUsuario);
+        usuarioEditar.setFechaNacimiento(fecha_nacimientoUsuario);
+        usuarioEditar.setPaginaWeb(pagina_webUsuario);
+        usuarioEditar.setAficciones(aficionesUsuario);
+        usuarioEditar.setCiudad(ciudadUsuario);
+        
+        usuarioFacade.edit(usuarioEditar);
         
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Perfilservlet");
         rd.forward(request, response);
