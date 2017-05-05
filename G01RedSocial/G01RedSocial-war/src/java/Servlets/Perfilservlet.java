@@ -9,7 +9,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pruebas;
+package Servlets;
 
 import g01.entity.Estudios;
 import g01.entity.ExperienciaLaboral;
