@@ -6,9 +6,12 @@
 package g01.facade;
 
 import g01.entity.ExperienciaLaboral;
+import g01.entity.Login;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +30,15 @@ public class ExperienciaLaboralFacade extends AbstractFacade<ExperienciaLaboral>
 
     public ExperienciaLaboralFacade() {
         super(ExperienciaLaboral.class);
+    }
+   
+    
+    public List<ExperienciaLaboral> findExperienciaLaboral(int id) {
+        Query q; 
+        
+        q = em.createQuery("select exp from ExperienciaLaboral exp where exp.usuarioidUsuario.idUsuario = :id");
+        q.setParameter("id",  id);
+        return q.getResultList();
     }
     
 }

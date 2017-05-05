@@ -38,10 +38,10 @@ public class ActualizarPerfilServlet extends HttpServlet {
         
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         
-        
         usuarioFacade.edit(usuario);
         
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Perfilservlet");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

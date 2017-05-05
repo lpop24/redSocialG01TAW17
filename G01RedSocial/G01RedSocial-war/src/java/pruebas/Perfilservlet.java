@@ -11,9 +11,14 @@
  */
 package pruebas;
 
+import g01.entity.Estudios;
+import g01.entity.ExperienciaLaboral;
 import g01.entity.Usuario;
+import g01.facade.EstudiosFacade;
+import g01.facade.ExperienciaLaboralFacade;
 import g01.facade.UsuarioFacade;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -31,6 +36,12 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "Perfilservlet", urlPatterns = {"/Perfilservlet"})
 public class Perfilservlet extends HttpServlet {
 
+    @EJB
+    private EstudiosFacade estudiosFacade;
+
+    @EJB
+    private ExperienciaLaboralFacade experienciaLaboralFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,6 +53,9 @@ public class Perfilservlet extends HttpServlet {
      */
     @EJB
     private UsuarioFacade userfacade;
+    
+    
+    
             
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -93,13 +107,23 @@ public class Perfilservlet extends HttpServlet {
         /*
         byte[] foto = user.getFoto();
         request.setAttribute("foto", foto);
-        
-        Collection<ExperienciaLaboral> experiencia = user.getExperienciaLaboralCollection();
+        */
+        /*Collection<ExperienciaLaboral> experiencia = user.getExperienciaLaboralCollection();
         request.setAttribute ("experiencia", experiencia);
         
         Collection<Estudios> estudios = user.getEstudiosCollection();
         request.setAttribute ("estudios", estudios);
         */
+        
+        
+        int idLista = id;
+        /*
+        List<ExperienciaLaboral> experiencia = experienciaLaboralFacade.findExperienciaLaboral(idLista);
+        request.setAttribute ("experiencia", experiencia);
+        */
+        
+        List<Estudios> estudios =estudiosFacade.findEstudios(idLista);
+        request.setAttribute ("estudios", estudios);
         
         RequestDispatcher rd;
         

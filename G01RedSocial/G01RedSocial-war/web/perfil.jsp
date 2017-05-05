@@ -3,6 +3,7 @@
     Created on : 21-abr-2017, 9:58:21
     Author     : Alberto Cazorla Suarez
 --%>
+<%@page import="java.util.List"%>
 <%@page import="g01.entity.Estudios"%>
 <%@page import="java.util.Collection"%>
 <%@page import="g01.entity.ExperienciaLaboral"%>
@@ -50,13 +51,15 @@
         /*
         byte[] foto;
         //foto = (byte[]) request.getAttribute("foto");
-        
-        Collection<ExperienciaLaboral> experiencia;
-        experiencia = (Collection<ExperienciaLaboral>) request.getAttribute("experiencia");
-        
-        Collection<Estudios> estudios;
-        estudios = (Collection<Estudios>)request.getAttribute ("estudios");
         */
+        
+        
+        List<ExperienciaLaboral> experiencia;
+        experiencia = (List<ExperienciaLaboral>) request.getAttribute("experiencia");
+        
+        List<Estudios> estudios;
+        estudios = (List<Estudios>)request.getAttribute ("estudios");
+        
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -88,14 +91,14 @@
             <br/>
             
             <h3>Estudios</h3>
-                <%--<%for(Estudios est: estudios){ %>
+                <%for(Estudios est: estudios){ %>
                     <b>Nombre</b><%= est.getNombre() %><br>
                     <b>Fecha de inicio</b>
-                    <% java.util.Date fechaInicioEst=est.getFechaInicio();%>
+                    <%java.util.Date fechaInicioEst=est.getFechaInicio();%>
                     <%=fechaInicioEst%><br>
                     <br>
                     <b>Fecha de finalización</b>
-                    <% java.util.Date fechaFinEst=est.getFechaFin();%>
+                    <%java.util.Date fechaFinEst=est.getFechaFin();%>
                     <%=fechaFinEst%>
                     <br>
                     <b>Ubicación</b><%= est.getUbicacion()%><br>
@@ -103,22 +106,7 @@
                     <br>
                 <%}%>
             <br>
-            
-            <h3>Experiencia Laboral</h3>
-                <%for(ExperienciaLaboral exp: experiencia){ %>
-                    <b>Puesto</b><%= exp.getPuesto() %><br>
-                    <b>Empresa</b><%=exp.getEmpresa() %><br>
-                    <b>Fecha de inicio</b>
-                    <% java.util.Date fechaInicioExp=exp.getFechaInicio();%>
-                    <%=fechaInicioExp%><br>
-                    <b>Fecha de finalización</b><br>
-                    <% java.util.Date fechaFinExp=exp.getFechaFin();%>
-                    <%=fechaFinExp%><br>
-                    <b>Página web</b><%= exp.getWeb() %><br>
-                    <b>Ubicación</b><%=exp.getUbicacion() %><br>
-                    <b>Descripción</b><%= exp.getDescripcion() %><br>
-                    <br>
-                <%}%>--%>
+ 
         <br/>
         <input type="button" value="Modificar Perfil" onClick="location.href = '/G01RedSocial-war/modificar.jsp'">
     </body>
