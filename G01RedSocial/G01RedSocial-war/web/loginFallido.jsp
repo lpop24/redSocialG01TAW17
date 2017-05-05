@@ -1,7 +1,5 @@
 <%-- 
-    Document   : loginFallido
-    Created on : 27-abr-2017, 18:33:46
-    Author     : xdaxn
+    Author     : Daniel Alvarez Valero
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
