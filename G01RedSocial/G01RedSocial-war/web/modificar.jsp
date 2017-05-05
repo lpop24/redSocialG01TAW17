@@ -18,7 +18,7 @@
     </head>
     <body>
         Modificar perfil de: <br/><br/>
-        <form method="post" action="Perfilservlet" name="modificar">
+        <form method="post" action="ActualizarPerfilServlet" name="modificar">
             <table border="1">
                 <tbody>
                     <tr>
