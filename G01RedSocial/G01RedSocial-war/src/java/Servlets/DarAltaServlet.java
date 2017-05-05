@@ -60,6 +60,7 @@ public class DarAltaServlet extends HttpServlet {
        
 
         Usuario usuario;
+        String id = request.getParameter("id");
         String nombre = request.getParameter("nombre");
         String apellidos = request.getParameter("apellidos");
         String cuentaInstagram = request.getParameter("instagram");

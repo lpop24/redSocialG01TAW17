@@ -4,23 +4,27 @@
     Author     : Loubna Channouf Cherradi
 --%>
 
+<%@page import="g01.entity.Usuario"%>
+<%@page import="g01.entity.Estudios"%>
+<%@page import="g01.entity.ExperienciaLaboral"%>
+<%@page import="java.util.Collection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Nuevo Usuario</title>
     </head>
     <body>
         <h1>Crear Cuenta</h1>
-        <form method="post" action="darAltaServlet" name="crear">
+        <form method="post" action="DarAltaServlet" name="crear">
             <table border="1">
                 <tbody>
                     <tr>
                         <td>Nombre:</td>
                         <td><input type="text" name="nombre" value=""></td>
                     </tr>
-<!--                    <tr>
+                    <tr>
                         <td>Apellidos:</td>
                         <td><input type="text" name="apellidos" value=""></td>
                     </tr>
@@ -47,7 +51,7 @@
                     <tr>
                         <td>Pagina web:</td>
                         <td><input type="text" name="pagina_web" value=""></td>
-                    </tr>
+                    </tr><!--
                     <tr>
                         <td>Aficiones:</td>
                         <td><input type="text" name="aficiones" value=""></td>
