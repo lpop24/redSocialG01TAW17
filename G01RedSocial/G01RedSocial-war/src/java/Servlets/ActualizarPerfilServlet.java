@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 
-// Alvaro Medina Martinez
-
 package Servlets;
 
 import g01.entity.Usuario;
