@@ -60,48 +60,96 @@
 <!DOCTYPE html>
 <html>
     <head>
+<style>
+    table {
+        width: 25%;
+    }
+    td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        background-color: #dddddd;
+    }
+</style>
+</head>
+    <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <title>PERFIL DE USUARIO</title>
     </head>
     <body>
             <h2>Perfil de <%= nombre %></h2>
-            ---------<br/>
-            -o---o--<br/>
-            ---*----<br/>
-            -www--<br/>
-            ---------<br/>
+            
+             <table>
+                <th>Datos personales</th>
+                <tr>
+                <td><b>Nombre: </b></td><td><%= nombre %> <%= apellidos %><br/></td>
+                </tr>
+                <tr>
+                <td><b>Fecha de nacimiento: </b> </td><td><%= fechanacimiento %><br/></td>
+                </tr>
+                <tr>
+                <td><b>Ciudad de origen: </b></td><td> <%= ciudad %><br/></td>
+                </tr>
+                <tr>
+                <td><b>Correo: </b></td><td><%= correo %><br/></td>
+                </tr>
+                <tr>
+                <td><b>Página web: </b></td><td> <%= web %><br/></td>
+                </tr>
+                <tr>
+                <td><b>Teléfono: </b></td><td><%= telefono %><br/></td>
+                </tr>
+                <tr>
+                <td><b>Instagram: </b></td><td><%= instagram %><br/></td>
+                </tr>
+                <tr>
+                <td><b>Twitter: </b></td><td><%= twitter %><br/></td>
+                </tr>
+                <tr>
+                <td><b>Aficiones: </b></td><td><%= aficiones %><br/></td>
+                </tr>
+                <br/>
+                <br/>
+            </table>
             <br/>
-        
-            <h3>Datos personales</h3>
-                <b>Nombre: </b><%= nombre %> <%= apellidos %><br/>
-                <b>Fecha de nacimiento: </b> <%= fechanacimiento %><br/>
-                <b>Ciudad de origen: </b> <%= ciudad %><br/>
-                <b>Correo: </b><%= correo %><br/>
-                <b>Página web: </b> <%= web %><br/>
-                <b>Teléfono: </b><%= telefono %><br/>
-                <b>Instagram: </b><%= instagram %><br/>
-                <b>Twitter: </b><%= twitter %><br/>
-                <b>Aficiones: </b><%= aficiones %><br/>
             <br/>
             
-            <h3>Estudios</h3>
-                <%for(Estudios est: estudios){ %>
-                    <b>Nombre</b><%= est.getNombre() %><br>
-                    <b>Fecha de inicio</b>
+            <table>
+                <th>Estudios</th>
+                    <%for(Estudios est: estudios){ %>
+                    <tr>
+                    <td><b>Nombre: </b></td><td><%= est.getNombre() %><br/></td>
+                    </tr>
+                    <tr>
+                    <td><b>Fecha de inicio: </b></td><td>
                     <%java.util.Date fechaInicioEst=est.getFechaInicio();%>
-                    <%=fechaInicioEst%><br>
-                    <br>
-                    <b>Fecha de finalización</b>
+                    <%=fechaInicioEst%><br/></td>
+                    </tr>
+                    <tr>
+                    <td><b>Fecha de finalización: </b></td><td>
                     <%java.util.Date fechaFinEst=est.getFechaFin();%>
-                    <%=fechaFinEst%>
-                    <br>
-                    <b>Ubicación</b><%= est.getUbicacion()%><br>
-                    <b>Descripción</b><%= est.getDescripcion() %><br>
-                    <br>
-                <%}%>
-            <br>
- 
+                    <%=fechaFinEst%><br/></td>
+                    </tr>
+                    <tr>
+                    <td><b>Ubicación: </b></td><td><%= est.getUbicacion()%><br/></td>
+                    </tr>
+                    <tr>
+                    <td><b>Descripción: </b></td><td><%= est.getDescripcion() %><br/></td>
+                    </tr>
+                    <tr>
+                    <td> <br/></td>
+                    </tr>
+                    <br/>
+                    <%}%>
+              </table>
+          
+            
         <br/>
         <input type="button" value="Modificar Perfil" onClick="location.href = '/G01RedSocial-war/modificar.jsp'">
     </body>
