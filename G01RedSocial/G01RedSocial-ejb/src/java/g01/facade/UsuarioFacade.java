@@ -39,5 +39,4 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         q.setParameter("id", id);
         return q.getResultList();
     }
-    
 }
