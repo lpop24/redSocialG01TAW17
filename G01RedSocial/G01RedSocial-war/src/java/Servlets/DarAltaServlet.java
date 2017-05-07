@@ -7,6 +7,7 @@ package Servlets;
 
 import g01.entity.Estudios;
 import g01.entity.ExperienciaLaboral;
+import g01.entity.Login;
 import g01.entity.Usuario;
 import g01.facade.EstudiosFacade;
 import g01.facade.ExperienciaLaboralFacade;
@@ -17,6 +18,8 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Random;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -26,6 +29,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -41,10 +45,10 @@ public class DarAltaServlet extends HttpServlet {
     private ExperienciaLaboralFacade experienciaLaboralFacade;
 
     @EJB
-    private LoginFacade loginFacade;
-
-    @EJB
     private UsuarioFacade usuarioFacade;
+    
+    @EJB
+    private LoginFacade loginFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -58,9 +62,27 @@ public class DarAltaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
        
+        /**
+         * LOGIN
+         */
+        
 
+        String user = request.getParameter("user");
+        String password = request.getParameter("password");
+        
+        Login log = new Login();
+        
+        log.setUsuario1(user);
+        log.setContraseña(password);
+        
+        this.loginFacade.create(log);
+        
+
+        /**
+         * USUARIO
+         */
         Usuario usuario;
-        String id = request.getParameter("id");
+        
         String nombre = request.getParameter("nombre");
         String apellidos = request.getParameter("apellidos");
         String cuentaInstagram = request.getParameter("instagram");
@@ -69,30 +91,29 @@ public class DarAltaServlet extends HttpServlet {
         String telefono = request.getParameter("telefono");
         String fechaNacimiento = request.getParameter("fecha_nacimiento"); //Se nos ha pasado ponerlo coo date en la base de datos
         String paginaWebUsuario = request.getParameter("pagina_web");
-        String aficiones = request.getParameter("aficciones");//Fail en el nombre XD
+        String aficiones = request.getParameter("aficiones");
         //byte[] foto =request.getParameter("foto");
+        String temp = request.getParameter("idUsuario"); 
         String ciudad = request.getParameter("ciudad");
-        String idUsuario = request.getParameter("idUsuario");
+        //int idUsuario = Integer.valueOf(request.getParameter("idUsuario"));
         //-------------------------------------------------------------//    
-        java.util.Date fechaInicioEst = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fecha_inicio_est"));
-        java.util.Date fechaFinEst = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fecha_fin"));
+        //java.util.Date fechaInicioEst = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fecha_inicio_est"));
+        //java.util.Date fechaFinEst = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fecha_fin_est"));
         String nombreCentro = request.getParameter("nombre");
         String descripcionEst = request.getParameter("descripcion");
         String ubicacionCentro = request.getParameter("ubicacion");
         //--------------------------------------------------------------//        
-        java.util.Date fechaInicioLab = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fecha_inicio"));
-        java.util.Date fechaFinLab = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fecha_fin"));
+        //java.util.Date fechaInicioLab = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fecha_inicio_lab"));
+        //java.util.Date fechaFinLab = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fecha_fin_lab"));
         String empresa = request.getParameter("empresa");
         String ubicacionEmpresa = request.getParameter("ubicacion");
         String descripcionLab = request.getParameter("descripcion");
         String puesto = request.getParameter("puesto");
         String paginaWebEmpresa = request.getParameter("web");
-
-        if (idUsuario == null || idUsuario.isEmpty()) {
-            usuario = new Usuario();
-        } else {
-            usuario = this.usuarioFacade.find(idUsuario);//Esto sería para actualizar
-        }
+        
+       
+        
+        usuario = new Usuario();
 
         usuario.setAficciones(aficiones);
         usuario.setApellidos(apellidos);
@@ -106,41 +127,49 @@ public class DarAltaServlet extends HttpServlet {
         usuario.setTwitter(cuentaTwitter);
         
         
-        Collection<Estudios> estudios;
-        Collection<ExperienciaLaboral> expLaboral;
+        usuario.setLoginusuario(log);
+        int id = (int) ( Math.random() * 1000000) + 1 ;
+        usuario.setIdUsuario(id);
         
-        estudios = this.estudiosFacade.findAll();
-        expLaboral = this.experienciaLaboralFacade.findAll();
+         this.usuarioFacade.create(usuario);
         
-        Estudios est = new Estudios();
-               
-        est.setNombre(nombreCentro);
-        est.setUbicacion(ubicacionCentro);
-        est.setFechaInicio(fechaInicioEst);
-        est.setFechaFin(fechaFinEst);
-        est.setDescripcion(descripcionEst);
+        /**
+         * ESTUDIOS
+         */
+        //estudios = this.estudiosFacade.findAll();
+        //expLaboral = this.experienciaLaboralFacade.findAll();
         
-        this.estudiosFacade.create(est);        
-        usuario.getEstudiosCollection().add(est);
+//        Collection<Estudios> estudios;     
+//        Estudios est = new Estudios();
+//        est.setNombre(nombreCentro);
+//        est.setUbicacion(ubicacionCentro);
+//        //est.setFechaInicio(fechaInicioEst);
+//        //est.setFechaFin(fechaFinEst);
+//        est.setDescripcion(descripcionEst);
+//        
+//        this.estudiosFacade.create(est);        
+//        usuario.getEstudiosCollection().add(est);
         
-        this.usuarioFacade.edit(usuario); //Para editar (So for Álvaro que ahora se llama Alvaro porque si no, peta todo
+        /**
+         * EXPERIENCIA LABORAL
+         */
+//        Collection<ExperienciaLaboral> expLaboral;
+//        ExperienciaLaboral lab = new ExperienciaLaboral();
+//        
+//        
+//            lab.setEmpresa(empresa);
+//            //lab.setFechaInicio(fechaInicioLab);
+//            //lab.setFechaFin(fechaFinLab);
+//            lab.setPuesto(puesto);
+//            lab.setWeb(paginaWebEmpresa);
+//            lab.setDescripcion(descripcionLab);
+//            lab.setUbicacion(ubicacionEmpresa);
+//            
+//        this.experienciaLaboralFacade.create(lab);
+//        usuario.getExperienciaLaboralCollection().add(lab);
         
-        ExperienciaLaboral lab = new ExperienciaLaboral();
         
-        
-            lab.setEmpresa(empresa);
-            lab.setFechaInicio(fechaInicioLab);
-            lab.setFechaFin(fechaFinLab);
-            lab.setPuesto(puesto);
-            lab.setWeb(paginaWebEmpresa);
-            lab.setDescripcion(descripcionLab);
-            lab.setUbicacion(ubicacionEmpresa);
-            
-        this.experienciaLaboralFacade.create(lab);
-        usuario.getExperienciaLaboralCollection().add(lab);
-        
-        
-        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/darDeAlta.jsp");
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/usuarioCreado.jsp");
         rd.forward(request, response);
         
         response.setContentType("text/html;charset=UTF-8");
