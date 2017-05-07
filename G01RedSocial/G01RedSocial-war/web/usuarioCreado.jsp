@@ -14,7 +14,10 @@
     <body>
         <h1>USUARIO CREADO!</h1>
         
-        <input type="button" value="Iniciar Sesión" onClick="location.href = '/G01RedSocial-war/login.jsp'">        
+        
+        
+        <input type="button" value="Iniciar Sesión" onClick="location.href = 'login.jsp'">  
+        
         
 
     </body>

@@ -14,11 +14,12 @@
         <br/>
         Asegúrate de que has los introducido correctamente<br/>
         <br/>
-        <input type="button" value="Volver" onClick="location.href = '/G01RedSocial-war/login.jsp'">
         
-        <%
-            //Preguntar al profesor si el botón está bien hecho
-        %>    
+
+
+        <input type="button" value="Volver" onClick="location.href = 'login.jsp'">
+
+  
             
         
     </body>

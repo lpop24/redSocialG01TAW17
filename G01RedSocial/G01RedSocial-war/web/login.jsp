@@ -25,6 +25,9 @@
             <button>Entrar</button>
         </form>
         <br/>
-            <input type="button" value="Crear Cuenta" onClick="location.href = '/G01RedSocial-war/darDeAlta.jsp'">
+
+        <input type="button" value="Crear Cuenta" onClick="location.href = 'darDeAlta.jsp'">
+        <input type="button" value="Volver a la Portada" onClick="location.href = 'index.html'">
+
     </body>
 </html>

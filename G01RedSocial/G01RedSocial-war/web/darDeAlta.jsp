@@ -82,6 +82,10 @@
                     
             <button>Guardar</button>
         </form>
+        
+        <input type="button" value="Cancelar" onClick="location.href = 'login.jsp'">
     </body>
+    
+    
     </body>
 </html>

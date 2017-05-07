@@ -151,6 +151,9 @@
           
             
         <br/>
-        <input type="button" value="Modificar Perfil" onClick="location.href = '/G01RedSocial-war/modificar.jsp'">
+
+        <input type="button" value="Modificar Perfil" onClick="location.href = 'modificar.jsp'">
+        <input type="button" value="Cerrar Sesión" onClick="location.href = 'login.jsp'">
+
     </body>
 </html>
