@@ -29,18 +29,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author RetailAdmin
- */
+
 @WebServlet(name = "Perfilservlet", urlPatterns = {"/Perfilservlet"})
 public class Perfilservlet extends HttpServlet {
 
     @EJB
     private EstudiosFacade estudiosFacade;
 
-    @EJB
-    private ExperienciaLaboralFacade experienciaLaboralFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -53,8 +48,6 @@ public class Perfilservlet extends HttpServlet {
      */
     @EJB
     private UsuarioFacade userfacade;
-    
-    
     
             
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

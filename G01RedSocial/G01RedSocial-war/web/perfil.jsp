@@ -12,7 +12,7 @@
 
 <%
        Integer id;
-       id = (Integer) request.getAttribute("idAlberto"); //El ID lo coges bien
+       id = (Integer) request.getAttribute("idAlberto");
     
        String nombre;
        nombre = (String) request.getAttribute("nombre");
